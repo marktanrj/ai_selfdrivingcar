@@ -1,0 +1,5 @@
+python SearchAgent.py dynamic_config1.txt
+python SearchAgent.py dynamic_config2.txt
+python SearchAgent.py dynamic_config3.txt
+python SearchAgent.py dynamic_config4.txt
+python SearchAgent.py dynamic_config5.txt

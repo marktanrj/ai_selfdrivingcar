@@ -1,0 +1,48 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Config1",
+      "type": "python",
+      "request": "launch",
+      "program": "./SearchAgent.py",
+      "args": ["dynamic_config1.txt"],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Config2",
+      "type": "python",
+      "request": "launch",
+      "program": "./SearchAgent.py",
+      "args": ["dynamic_config2.txt"],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Config3",
+      "type": "python",
+      "request": "launch",
+      "program": "./SearchAgent.py",
+      "args": ["dynamic_config3.txt"],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Config4",
+      "type": "python",
+      "request": "launch",
+      "program": "./SearchAgent.py",
+      "args": ["dynamic_config4.txt"],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Config5",
+      "type": "python",
+      "request": "launch",
+      "program": "./SearchAgent.py",
+      "args": ["dynamic_config5.txt"],
+      "console": "integratedTerminal"
+    },
+  ]
+}
