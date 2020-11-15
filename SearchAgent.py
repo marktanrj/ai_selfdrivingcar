@@ -39,7 +39,6 @@ class SearchAgent(Agent):
         for goalState in goalstates:
             goalReached, path = self.Best_First_Search(startState, goalState)
             results.append({"goalReached": goalReached, "path": path})
-            # print("LOC:",  startState["location"],  "GOAL:", goalState["location"])
 
         onlyGoalReachedResults = []
         for result in results:
