@@ -60,19 +60,23 @@ class SearchAgent(Agent):
         current = {}
 
         while len(openSet) > 0:
+            # get node with lowest fScore
             current = min(openSet, key=lambda x: x["fScore"])
 
+            # return if goal reached
             if current["location"] == goal["location"]:
                 return True, self.reconstruct_path(current)
 
             openSet.remove(current)
             closedSet.append(current)
 
+            # loop all actions and get next possible nodes
             for action in self.valid_actions:
                 neighbor = self.env.applyAction(self, current, action)
                 if neighbor == current:
                     continue
-
+                
+                # when vertically nearer to goal, don't go opposite direction of goal
                 startX = neighbor["location"][0]
                 goalX = goal["location"][0]
                 startY = neighbor["location"][1]
@@ -82,9 +86,12 @@ class SearchAgent(Agent):
                     elif action == "left" and goalX - startX > 0:
                         continue
 
-                if not self.searchutil.isPresentStateInList(neighbor, openSet) and not self.searchutil.isPresentStateInList(neighbor, closedSet):
+                # add neighbour to list if not explored
+                if not self.searchutil.isPresentStateInList(neighbor, openSet) and \
+                    not self.searchutil.isPresentStateInList(neighbor, closedSet):
                     openSet.append(neighbor)
 
+                # calculate heuristic cost of neigbour
                 neighbor["fScore"] = self.heuristic_cost_estimate(neighbor, goal)
 
         if current["location"] == goal["location"]:
@@ -97,6 +104,8 @@ class SearchAgent(Agent):
         goalX = goal["location"][0]
         startY = start["location"][1]
         goalY = goal["location"][1]
+
+        # when vertically nearer to goal, increase cost for nodes horizontally further from goal
         if startY > 15:
             return abs(goalY - startY) * 2 + abs(goalX - startX) * max(1, startX)
         else:
