@@ -4,7 +4,7 @@ from environment import Agent, Environment
 from simulator import Simulator
 import sys
 from searchUtils import searchUtils
-
+import os
 
 class SearchAgent(Agent):
     """ An agent that drives in the Smartcab world.
@@ -37,7 +37,7 @@ class SearchAgent(Agent):
         results = []
         startState = self.state
         for goalState in goalstates:
-            goalReached, path = self.A_Star(startState, goalState)
+            goalReached, path = self.Best_First_Search(startState, goalState)
             results.append({"goalReached": goalReached, "path": path})
             # print("LOC:",  startState["location"],  "GOAL:", goalState["location"])
 
@@ -54,10 +54,9 @@ class SearchAgent(Agent):
 
         return best["path"]
 
-    def A_Star(self, start, goal):
+    def Best_First_Search(self, start, goal):
         closedSet = []
         openSet = [start]
-        start["gScore"] = 0
         start["fScore"] = self.heuristic_cost_estimate(start, goal)
         current = {}
 
@@ -75,15 +74,19 @@ class SearchAgent(Agent):
                 if neighbor == current:
                     continue
 
-                tentative_gScore = current["gScore"] + self.distance_current_to_neighbor(current, neighbor)
+                startX = neighbor["location"][0]
+                goalX = goal["location"][0]
+                startY = neighbor["location"][1]
+                if startY > 15:
+                    if action == "right" and goalX - startX < 0:
+                        continue
+                    elif action == "left" and goalX - startX > 0:
+                        continue
 
                 if not self.searchutil.isPresentStateInList(neighbor, openSet) and not self.searchutil.isPresentStateInList(neighbor, closedSet):
                     openSet.append(neighbor)
 
-                neighbor["gScore"] = tentative_gScore
-                neighbor["fScore"] = neighbor["gScore"] + self.heuristic_cost_estimate(neighbor, goal)
-
-                # print(neighbor)
+                neighbor["fScore"] = self.heuristic_cost_estimate(neighbor, goal)
 
         if current["location"] == goal["location"]:
             return True, self.reconstruct_path(current)
@@ -95,21 +98,16 @@ class SearchAgent(Agent):
         goalX = goal["location"][0]
         startY = start["location"][1]
         goalY = goal["location"][1]
-        return abs(goalY - startY) + abs(goalX - startX)
+        if startY > 15:
+            return abs(goalY - startY) * 2 + abs(goalX - startX) * max(1, startX)
+        else:
+            return abs(goalY - startY) * 2 + abs(goalX - startX)
 
     def reconstruct_path(self, state):
         total_path = []
         if "previous" in state:
             total_path = self.searchutil.retrieveActionSequenceFromState(state)
         return total_path
-
-    def distance_current_to_neighbor(self, current, neighbor):
-        cX = current["location"][0]
-        cY = current["location"][1]
-        nX = neighbor["location"][0]
-        nY = neighbor["location"][1]
-        result = math.sqrt(((cX-nX)**2)+((cY-nY)**2))/4
-        return result
 
     def update(self):
         """ The update function is called when a time step is completed in the
@@ -138,13 +136,12 @@ def run(filename):
     # Flags:
     #   update_delay - continuous time (in seconds) between actions, default is 2.0 seconds
     #   display      - set to False to disable the GUI if PyGame is enabled
-    sim = Simulator(env, update_delay=2)
+    sim = Simulator(env, update_delay=0.2)
 
     ##############
     # Run the simulator
     ##############
-    sim.run()
-
+    sim.run()    
 
 if __name__ == '__main__':
     run(sys.argv[1])

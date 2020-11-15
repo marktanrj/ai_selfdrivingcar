@@ -9,7 +9,7 @@
       "type": "python",
       "request": "launch",
       "program": "./SearchAgent.py",
-      "args": ["dynamic_config1.txt"],
+      "args": ["ConfigFiles/dynamic_config1.txt"],
       "console": "integratedTerminal"
     },
     {
@@ -17,7 +17,7 @@
       "type": "python",
       "request": "launch",
       "program": "./SearchAgent.py",
-      "args": ["dynamic_config2.txt"],
+      "args": ["ConfigFiles/dynamic_config2.txt"],
       "console": "integratedTerminal"
     },
     {
@@ -25,7 +25,7 @@
       "type": "python",
       "request": "launch",
       "program": "./SearchAgent.py",
-      "args": ["dynamic_config3.txt"],
+      "args": ["ConfigFiles/dynamic_config3.txt"],
       "console": "integratedTerminal"
     },
     {
@@ -33,7 +33,7 @@
       "type": "python",
       "request": "launch",
       "program": "./SearchAgent.py",
-      "args": ["dynamic_config4.txt"],
+      "args": ["ConfigFiles/dynamic_config4.txt"],
       "console": "integratedTerminal"
     },
     {
@@ -41,7 +41,15 @@
       "type": "python",
       "request": "launch",
       "program": "./SearchAgent.py",
-      "args": ["dynamic_config5.txt"],
+      "args": ["ConfigFiles/dynamic_config5.txt"],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Config6",
+      "type": "python",
+      "request": "launch",
+      "program": "./SearchAgent.py",
+      "args": ["ConfigFiles/dynamic_config6.txt"],
       "console": "integratedTerminal"
     },
   ]
